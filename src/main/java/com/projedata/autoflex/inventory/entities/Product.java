@@ -3,6 +3,9 @@ package com.projedata.autoflex.inventory.entities;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Setter
 @Getter
 @AllArgsConstructor
@@ -23,5 +26,8 @@ public class Product {
 
     @Column(nullable = false)
     private float price;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductMaterial> materials = new ArrayList<>();
 
 }

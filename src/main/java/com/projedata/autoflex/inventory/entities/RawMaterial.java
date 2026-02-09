@@ -7,6 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -30,4 +33,8 @@ public class RawMaterial {
 
     @Column(nullable = false)
     private float stockQuantity;
+
+    @OneToMany(mappedBy = "rawMaterial")
+    private List<ProductMaterial> products = new ArrayList<>();
+
 }
