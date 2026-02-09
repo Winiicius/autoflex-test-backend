@@ -7,6 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,11 +29,12 @@ public class RawMaterial {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, length = 20)
     private Unit unit;
 
     @Column(nullable = false)
-    private float stockQuantity;
+    private BigDecimal stockQuantity;
 
     @OneToMany(mappedBy = "rawMaterial")
     private List<ProductMaterial> products = new ArrayList<>();
