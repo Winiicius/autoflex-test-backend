@@ -1,0 +1,16 @@
+spring:
+  application:
+    name: Autoflex Inventory API
+  datasource:
+    url: jdbc:postgresql://autoflex-database:5432/autoflex-database
+    username: autoflex
+    password: autoflex
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
