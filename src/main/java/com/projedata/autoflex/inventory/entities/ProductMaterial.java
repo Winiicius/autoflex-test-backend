@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,5 +29,5 @@ public class ProductMaterial {
     private RawMaterial rawMaterial;
 
     @Column(nullable = false)
-    private float quantity;
+    private BigDecimal quantity;
 }
