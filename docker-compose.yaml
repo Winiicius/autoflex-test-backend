@@ -1,0 +1,31 @@
+services:
+  autoflex-api:
+    container_name: autoflex_api
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - autoflex-database-service
+
+  autoflex-database-service:
+    container_name: autoflex-database
+    image: postgres:15
+    environment:
+      POSTGRES_DB: autoflex-database
+      POSTGRES_USER: autoflex
+      POSTGRES_PASSWORD: autoflex
+    ports:
+      - "5432:5432"
+    volumes:
+      - autoflex_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer
+    container_name: autoflex_adminer
+    ports:
+      - "8081:8080"
+    depends_on:
+      - autoflex-database-service
+
+volumes:
+  autoflex_data:
