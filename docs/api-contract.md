@@ -1,15 +1,14 @@
 # API Contract — Autoflex Inventory API
 
-## 🔐 Auth
+## Auth
 
 ### Login
 POST /auth/login
 
-
 **Request**
 ```json
 {
-  "username": "admin",
+  "email": "admin@admin.com",
   "password": "123456"
 }
 ```
@@ -18,10 +17,11 @@ POST /auth/login
 ```json
 {
   "token": "jwt",
-  
   "user": {
     "id": 1,
-    "username": "admin"
+    "name": "admin",
+    "email": "admin@admin.com",
+    "role": "ADMIN"
   }
 }
 ```
@@ -33,6 +33,7 @@ POST   /products
 GET    /products  
 GET    /products/{id}  
 PUT    /products/{id}  
+PUT    /products/{id}/materials
 DELETE /products/{id}  
 
 **ProductRequest**
@@ -67,6 +68,14 @@ DELETE /products/{id}
   ]
 }
 ```
+**ProductMaterialsRequest**
+```json
+[
+  { "rawMaterialId": 1, "quantity": 2.5 },
+  { "rawMaterialId": 3, "quantity": 1.0 }
+]
+```
+
 ## RawMaterial
 
 Endpoints:  
@@ -98,26 +107,60 @@ GET /raw-materials?name=&code=
   "stockQuantity": 100
 }
 ```
+
 ## ProductMaterial
-Entidade de associação entre Product e RawMaterial
 
-Não possui CRUD próprio
+GET /production/capacity  
+“Não considera conflito/competição de matérias-primas entre produtos.”
 
-É gerenciada dentro do Product
-
-## Production Availability
-
-GET /production
-
-**Response**
-
-```json
+**ProductMaterialResponse**
+````json
 [
   {
     "productId": 1,
-    "productName": "Produto A",
-    "maxQuantity": 40,
-    "available": true
+    "productCode": "P-001",
+    "productName": "Product A",
+    "unitPrice": 50.0,
+    "maxQuantity": 16,
+    "totalValue": 800.0,
+    "materials": [
+      {
+        "rawMaterialId": 10,
+        "rawMaterialCode": "RM-010",
+        "rawMaterialName": "Steel",
+        "unit": "KG",
+        "requiredPerUnit": 2.5,
+        "stockQuantity": 100
+      },
+      {
+        "rawMaterialId": 11,
+        "rawMaterialCode": "RM-011",
+        "rawMaterialName": "Plastic",
+        "unit": "UNIT",
+        "requiredPerUnit": 3,
+        "stockQuantity": 50
+      }
+    ]
+  },
+  {
+    "productId": 2,
+    "productCode": "P-002",
+    "productName": "Product B",
+    "unitPrice": 20.0,
+    "maxQuantity": 0,
+    "totalValue": 0.0,
+    "materials": [
+      {
+        "rawMaterialId": 10,
+        "rawMaterialCode": "RM-010",
+        "rawMaterialName": "Steel",
+        "unit": "KG",
+        "requiredPerUnit": 1.0,
+        "stockQuantity": 0
+      }
+    ]
   }
 ]
-```
+
+
+````
