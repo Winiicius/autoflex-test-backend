@@ -3,7 +3,9 @@ package com.projedata.autoflex.inventory.mappers;
 import com.projedata.autoflex.inventory.dtos.rawMaterial.RawMaterialRequest;
 import com.projedata.autoflex.inventory.dtos.rawMaterial.RawMaterialResponse;
 import com.projedata.autoflex.inventory.entities.RawMaterial;
+import org.springframework.stereotype.Component;
 
+@Component
 public class RawMaterialMapper {
 
     public RawMaterialResponse toResponse(RawMaterial rawMaterial) {

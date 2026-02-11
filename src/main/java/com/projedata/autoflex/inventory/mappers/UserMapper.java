@@ -2,7 +2,9 @@ package com.projedata.autoflex.inventory.mappers;
 
 import com.projedata.autoflex.inventory.dtos.auth.UserSummaryResponse;
 import com.projedata.autoflex.inventory.entities.User;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapper {
 
     public UserSummaryResponse toSummary(User user) {

@@ -4,11 +4,13 @@ import com.projedata.autoflex.inventory.dtos.production.ProductionCapacityRespon
 import com.projedata.autoflex.inventory.entities.Product;
 import com.projedata.autoflex.inventory.entities.ProductMaterial;
 import com.projedata.autoflex.inventory.entities.RawMaterial;
+import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class ProductionMapper {
 
     public ProductionCapacityResponse toResponse(Product product, int maxQuantity) {

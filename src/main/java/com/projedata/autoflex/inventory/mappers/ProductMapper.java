@@ -6,11 +6,13 @@ import com.projedata.autoflex.inventory.dtos.product.ProductResponse;
 import com.projedata.autoflex.inventory.entities.Product;
 import com.projedata.autoflex.inventory.entities.ProductMaterial;
 import com.projedata.autoflex.inventory.entities.RawMaterial;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class ProductMapper {
 
     public ProductResponse toResponse(Product product) {
