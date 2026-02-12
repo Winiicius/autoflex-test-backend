@@ -16,13 +16,14 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     boolean existsByCode(String code);
 
     @Query("""
-    select distinct p
-    from Product p
-    left join fetch p.materials pm
-    left join fetch pm.rawMaterial rm
-    where (:name is null or lower(p.name) like lower(concat('%', :name, '%')))
-      and (:code is null or lower(p.code) like lower(concat('%', :code, '%')))
+        select distinct p
+        from Product p
+        left join fetch p.materials pm
+        left join fetch pm.rawMaterial rm
+        where (:name = '' or lower(p.name) like concat('%', lower(:name), '%'))
+          and (:code = '' or lower(p.code) like concat('%', lower(:code), '%'))
     """)
     List<Product> findAllWithMaterialsAndRawMaterialsFiltered(@Param("name") String name,
                                                               @Param("code") String code);
 }
+

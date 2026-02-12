@@ -74,8 +74,8 @@ public class ProductServiceImpl implements ProductService {
     @Transactional(readOnly = true)
     public List<ProductResponse> findAll(String name, String code) {
 
-        String normalizedName = (name != null && !name.isBlank()) ? name.trim() : null;
-        String normalizedCode = (code != null && !code.isBlank()) ? code.trim() : null;
+        String normalizedName = (name != null) ? name.trim() : "";
+        String normalizedCode = (code != null) ? code.trim() : "";
 
         return productRepository
                 .findAllWithMaterialsAndRawMaterialsFiltered(normalizedName, normalizedCode)

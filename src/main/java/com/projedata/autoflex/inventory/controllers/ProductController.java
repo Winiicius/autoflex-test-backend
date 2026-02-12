@@ -25,8 +25,8 @@ public class ProductController {
 
     @GetMapping
     public List<ProductResponse> findAll(
-            @RequestParam String name,
-            @RequestParam String code) {
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String code) {
         return productService.findAll(name, code);
     }
 
