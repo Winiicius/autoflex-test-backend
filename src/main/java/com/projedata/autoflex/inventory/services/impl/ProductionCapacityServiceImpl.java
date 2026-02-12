@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Comparator;
 import java.math.RoundingMode;
 import java.util.List;
 
@@ -26,9 +25,8 @@ public class ProductionCapacityServiceImpl implements ProductionCapacityService 
     @Transactional(readOnly = true)
     public List<ProductionCapacityResponse> findProductionCapacity() {
 
-        List<Product> products = productRepository.findAllWithMaterialsAndRawMaterials();
-
-        products.sort(Comparator.comparing(Product::getPrice, Comparator.nullsLast(Comparator.naturalOrder())).reversed());
+        List<Product> products = productRepository
+                .findAllWithMaterialsAndRawMaterialsFiltered("", "");
 
         return products.stream()
                 .map(p -> {
