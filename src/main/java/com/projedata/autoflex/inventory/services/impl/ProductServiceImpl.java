@@ -72,8 +72,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<ProductResponse> findAll() {
-        return productRepository.findAllWithMaterialsAndRawMaterials().stream()
+    public List<ProductResponse> findAll(String name, String code) {
+
+        String normalizedName = (name != null && !name.isBlank()) ? name.trim() : null;
+        String normalizedCode = (code != null && !code.isBlank()) ? code.trim() : null;
+
+        return productRepository
+                .findAllWithMaterialsAndRawMaterialsFiltered(normalizedName, normalizedCode)
+                .stream()
                 .map(productMapper::toResponse)
                 .toList();
     }
