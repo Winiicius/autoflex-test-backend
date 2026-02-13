@@ -108,7 +108,8 @@ public class ProductMapper {
         for (ProductMaterial pm : materials) {
             list.add(new ProductMaterialDTO(
                     pm.getRawMaterial().getId(),
-                    pm.getQuantity()
+                    pm.getQuantity(),
+                    pm.getRawMaterial().getUnit()
             ));
         }
         return list;

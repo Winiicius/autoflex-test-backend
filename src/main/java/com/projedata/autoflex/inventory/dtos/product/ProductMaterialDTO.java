@@ -1,5 +1,6 @@
 package com.projedata.autoflex.inventory.dtos.product;
 
+import com.projedata.autoflex.inventory.entities.enums.Unit;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
@@ -12,5 +13,8 @@ public record ProductMaterialDTO(
 
         @NotNull
         @Positive
-        BigDecimal quantity
+        BigDecimal quantity,
+
+        @NotNull
+        Unit unit
 ) {}
