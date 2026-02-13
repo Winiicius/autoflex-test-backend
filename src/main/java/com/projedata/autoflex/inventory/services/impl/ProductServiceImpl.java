@@ -98,7 +98,8 @@ public class ProductServiceImpl implements ProductService {
             throw new BusinessRuleException("Product must have at least one raw material");
         }
 
-        var product = productRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("RProduct not found: " + id));
+        var product = productRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Product not found: " + id));
 
         if (!product.getCode().equals(request.code()) && productRepository.existsByCode(request.code())) {
             throw new ConflictException("Product code already exists: " + request.code());
@@ -106,10 +107,20 @@ public class ProductServiceImpl implements ProductService {
 
         Map<Long, RawMaterial> rawMaterialsById = loadRawMaterials(request);
 
-        productMapper.updateEntity(product, request, rawMaterialsById);
+        product.setCode(request.code());
+        product.setName(request.name());
+        product.setPrice(request.price());
+
+        product.getMaterials().clear();
+        productRepository.flush();
+
+        product.getMaterials().addAll(
+                productMapper.toProductMaterials(request.materials(), product, rawMaterialsById)
+        );
 
         return productMapper.toResponse(product);
     }
+
 
     @Override
     @Transactional

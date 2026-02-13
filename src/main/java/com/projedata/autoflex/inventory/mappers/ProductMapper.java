@@ -70,22 +70,23 @@ public class ProductMapper {
         product.getMaterials().addAll(toProductMaterials(request.materials(), product, rawMaterialsById));
     }
 
-    private List<ProductMaterial> toProductMaterials(
-            List<ProductMaterialDTO> dtos,
+    public List<ProductMaterial> toProductMaterials(
+            List<ProductMaterialDTO> materials,
             Product product,
             Map<Long, RawMaterial> rawMaterialsById
     ) {
-        if (dtos == null || dtos.isEmpty()) return new ArrayList<>();
+        if (materials == null || materials.isEmpty()) return List.of();
 
         List<ProductMaterial> list = new ArrayList<>();
-        for (ProductMaterialDTO dto : dtos) {
-            RawMaterial rawMaterial = rawMaterialsById.get(dto.rawMaterialId());
-            ProductMaterial productMaterial = new ProductMaterial();
-            productMaterial.setProduct(product);
-            productMaterial.setRawMaterial(rawMaterial);
-            productMaterial.setQuantity(dto.quantity());
+        for (ProductMaterialDTO dto : materials) {
+            RawMaterial rm = rawMaterialsById.get(dto.rawMaterialId());
 
-            list.add(productMaterial);
+            ProductMaterial pm = new ProductMaterial();
+            pm.setProduct(product);
+            pm.setRawMaterial(rm);
+            pm.setQuantity(dto.quantity());
+
+            list.add(pm);
         }
         return list;
     }
