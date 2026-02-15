@@ -8,6 +8,7 @@ import com.projedata.autoflex.inventory.exceptions.ResourceNotFoundException;
 import com.projedata.autoflex.inventory.exceptions.UnauthorizedException;
 import com.projedata.autoflex.inventory.mappers.UserMapper;
 import com.projedata.autoflex.inventory.repositories.UserRepository;
+import com.projedata.autoflex.inventory.security.JwtService;
 import com.projedata.autoflex.inventory.services.AuthService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,6 +24,7 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final UserMapper userMapper;
+    private JwtService jwtService;
 
     @Override
     @Transactional(readOnly = true)
@@ -40,8 +42,13 @@ public class AuthServiceImpl implements AuthService {
             throw new UnauthorizedException("Invalid credentials");
         }
 
-        // temporary
-        String token = UUID.randomUUID().toString();
+        String token = jwtService.generateToken(
+                user.getEmail(),
+                java.util.Map.of(
+                        "role", user.getRole().name(),
+                        "userId", user.getId()
+                )
+        );
 
         var userSummary = userMapper.toSummary(user);
 
