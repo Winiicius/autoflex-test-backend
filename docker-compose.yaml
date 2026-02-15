@@ -2,6 +2,8 @@ services:
   autoflex-api:
     container_name: autoflex_api
     build: .
+    environment:
+      CORS_ALLOWED_ORIGINS: http://localhost:5173
     ports:
       - "8080:8080"
     depends_on:
