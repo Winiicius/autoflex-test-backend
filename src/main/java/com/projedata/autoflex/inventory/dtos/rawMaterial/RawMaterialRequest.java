@@ -1,10 +1,7 @@
 package com.projedata.autoflex.inventory.dtos.rawMaterial;
 
 import com.projedata.autoflex.inventory.entities.enums.Unit;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
@@ -21,6 +18,6 @@ public record RawMaterialRequest(
         Unit unit,
 
         @NotNull
-        @Positive
+        @PositiveOrZero
         BigDecimal stockQuantity
 ) {}
