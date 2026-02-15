@@ -1,11 +1,13 @@
 spring:
   application:
     name: Autoflex Inventory API
+
   datasource:
-    url: jdbc:postgresql://autoflex-database:5432/autoflex-database
-    username: autoflex
-    password: autoflex
+    url: ${SPRING_DATASOURCE_URL:jdbc:postgresql://localhost:5432/autoflex_database}
+    username: ${SPRING_DATASOURCE_USERNAME:autoflex}
+    password: ${SPRING_DATASOURCE_PASSWORD:autoflex}
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: validate
@@ -17,8 +19,8 @@ spring:
 
 security:
   jwt:
-    secret: "SIK8vUDXM3+0VulGxuWum04oCG2xlp/ATeMIzOnYm+SxsRdYJCEEB6BlmzSw5l1S"
-    expirationMinutes: 120
+    secret: ${JWT_SECRET:SIK8vUDXM3+0VulGxuWum04oCG2xlp/ATeMIzOnYm+SxsRdYJCEEB6BlmzSw5l1S}
+    expirationMinutes: ${JWT_EXPIRATION_MINUTES:120}
 
 app:
   cors:
