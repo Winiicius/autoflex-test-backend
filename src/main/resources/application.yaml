@@ -19,3 +19,7 @@ security:
   jwt:
     secret: "SIK8vUDXM3+0VulGxuWum04oCG2xlp/ATeMIzOnYm+SxsRdYJCEEB6BlmzSw5l1S"
     expirationMinutes: 120
+
+app:
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGINS:http://localhost:5173}

@@ -28,6 +28,10 @@ public class SecurityConfig {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
+
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
+
+
                         // Public
                         .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register").permitAll()
 
@@ -45,8 +49,6 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/raw-materials/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/raw-materials/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/raw-materials/**").hasRole("ADMIN")
-
-                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 
                         // Fallback
                         .anyRequest().authenticated()
